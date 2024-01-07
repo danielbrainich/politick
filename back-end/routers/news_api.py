@@ -10,8 +10,10 @@ news_api = APIRouter()
 async def get_news(name: str):
     api_url = 'https://newsapi.org/v2/everything'
     params = {
-        'q': name,
+        'q': f'"{name}"',
         'apiKey': NEWS_API_API_KEY,
+        'language': 'en',
+
     }
 
     try:

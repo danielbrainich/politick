@@ -9,6 +9,7 @@ import ContributionsTable from './components/ContributionsTable';
 import CongressGovPhoto from './components/CongressGovPhoto';
 import SponsoredBills from './components/SponsoredBills';
 import Statements from './components/Statements.js';
+import News from './components/News';
 import { getCongressGovPhoto, getSponsoredBillInfo } from './api/congressGov';
 import VotingInfo from './components/VotingInfo';
 
@@ -82,6 +83,9 @@ function GetRepByAddressForm() {
                             <li className="nav-item" role="presentation">
                                 <button className="nav-link" id="statements-tab" data-bs-toggle="pill" data-bs-target="#statements" type="button" role="tab">Statements</button>
                             </li>
+                            <li className="nav-item" role="presentation">
+                                <button className="nav-link" id="news-tab" data-bs-toggle="pill" data-bs-target="#news" type="button" role="tab">News</button>
+                            </li>
                         </ul>
                         <div className="tab-content" id="pills-tabContent">
                             <div className="tab-pane fade show active" id="rep-profile" role="tabpanel" aria-labelledby="rep-info-tab">
@@ -112,6 +116,11 @@ function GetRepByAddressForm() {
                             <div className="tab-pane fade" id="statements" role="tabpanel" aria-labelledby="statements-tab">
                                 <div className="d-flex flex-column align-items-center justify-content-center mt-5">
                                     <Statements statements={repStatements} />
+                                </div>
+                            </div>
+                            <div className="tab-pane fade" id="news" role="tabpanel" aria-labelledby="news-tab">
+                                <div className="d-flex flex-column align-items-center justify-content-center mt-5">
+                                    <News news={news} />
                                 </div>
                             </div>
                         </div>
