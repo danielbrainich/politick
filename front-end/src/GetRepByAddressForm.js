@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import getCivicInfoRepByAddress from './api/civicInfoApi';
-import { getOpenSecretsRepId, getOpenSecretsCandidateContributions, getOpenSecretsCandidateSummary } from './api/openSecretsApi';
-import { getRepresentativeProPublicaInfo, getRepresentativeProPublicaStatements } from './api/proPublicaApi';
+import GetCivicInfoData from './api/civicInfo';
+import getNewsApiData from './api/newsApi';
+import { getOpenSecretsRepId, getOpenSecretsCandidateContributions, getOpenSecretsCandidateSummary } from './api/openSecrets';
+import { getRepresentativeProPublicaInfo, getRepresentativeProPublicaStatements } from './api/proPublica';
 import AddressForm from './components/AddressForm';
-import RepresentativeInfo from './components/RepresentativeInfo';
+import Profile from './components/Profile';
 import ContributionsTable from './components/ContributionsTable';
 import CongressGovPhoto from './components/CongressGovPhoto';
 import SponsoredBills from './components/SponsoredBills';
 import Statements from './components/Statements.js';
-import { getCongressGovPhoto, getSponsoredBillInfo } from './api/congressApi';
+import { getCongressGovPhoto, getSponsoredBillInfo } from './api/congressGov';
 import VotingInfo from './components/VotingInfo';
 
 function GetRepByAddressForm() {
@@ -19,17 +20,17 @@ function GetRepByAddressForm() {
     const [repContribSummary, setRepContribSummary] = useState({});
     const [repSponsoredBills, setRepSponsoredBills] = useState({});
     const [repStatements, setRepStatements] = useState({});
-
+    const [news, setNews] = useState({});
     const [repPhoto, setRepPhoto] = useState({});
 
     const handleFormSubmit = async (formData) => {
 
         const address = `${formData.streetAddress} ${formData.city} ${formData.state} ${formData.zipCode}`;
 
-        const repData = await getCivicInfoRepByAddress(address);
+        const repData = await GetCivicInfoData(address);
         setRepresentativeInfo(repData);
 
-        const repId = await getOpenSecretsRepId(repData.state, repData.representative.name);
+        const repId = await getOpenSecretsRepId(repData.representative.state, repData.representative.name);
 
         const contribData = await getOpenSecretsCandidateContributions(repId.repId);
         setRepContribData(contribData);
@@ -48,6 +49,10 @@ function GetRepByAddressForm() {
 
         const repStatements = await getRepresentativeProPublicaStatements(proPubInfo.id);
         setRepStatements(repStatements);
+
+        const news = await getNewsApiData(repData.representative.name);
+        setNews(news)
+        console.log(news)
 
         setIsFormSubmitted(true);
     };
@@ -85,7 +90,7 @@ function GetRepByAddressForm() {
                                         <CongressGovPhoto info={proPublicaInfo} photo={repPhoto} />
                                     </div>
                                     <div className="col-3">
-                                        <RepresentativeInfo repInfo={representativeInfo} />
+                                        <Profile profile={representativeInfo} />
                                     </div>
                                 </div>
                             </div>
