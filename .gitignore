@@ -24,3 +24,4 @@ yarn-error.log*
 
 #confidential
 apiKeys.js
+api_keys.env
