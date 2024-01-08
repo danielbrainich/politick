@@ -13,7 +13,7 @@ async def get_news(name: str):
         'q': f'"{name}"',
         'apiKey': NEWS_API_API_KEY,
         'language': 'en',
-
+        'excludeDomains': 'boyculture.com'
     }
 
     try:
