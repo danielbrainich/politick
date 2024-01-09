@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import GetCivicInfoData from './api/civicInfo';
 import getNewsApiData from './api/newsApi';
-import { getOpenSecretsId, getOpenSecretsCandidateContributions, getOpenSecretsCandidateSummary } from './api/openSecretsIds';
+import { getOpenSecretsId, getOpenSecretsCandidateContributions } from './api/openSecretsIds';
+import getOpenSecretsSummary from './api/openSecretsSummary.js';
 import { getRepresentativeProPublicaInfo, getRepresentativeProPublicaStatements } from './api/proPublica';
 import AddressForm from './components/AddressForm';
 import Profile from './components/Profile';
@@ -36,8 +37,8 @@ function GetRepByAddressForm() {
         const contribData = await getOpenSecretsCandidateContributions(repId.repId);
         setRepContribData(contribData);
 
-        const contribSummary = await getOpenSecretsCandidateSummary(repId.repId);
-        setRepContribSummary(contribSummary);
+        const contribSummary = await getOpenSecretsSummary(repId.repId);
+        setRepContribSummary(contribSummary.summary);
 
         const proPubInfo = await getRepresentativeProPublicaInfo(repData.representative.name);
         setProPublicaInfo(proPubInfo);

@@ -1,7 +1,7 @@
 function ContributionsTable({ contributions, summary }) {
     return (
         <div>
-            {contributions && contributions.cycle && contributions.contributors && (
+            {summary && contributions && contributions.cycle && contributions.contributors && (
                 <div className="col">
                     <p>Campaign finance summary for the {contributions.cycle} election cycle:</p>
                     <div className="card mb-4">
